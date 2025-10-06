@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h1>Spring Boot File Download Example</h1>
+
+<form method="GET" action="/download">
+    <input type="text" name="fileName" placeholder="Enter file name" /><br/><br/>
+    <input type="submit" value="Download" />
+</form>
+
+<p th:text="${message}"></p>
+
+<br>
+<a href="/">Home</a>
+
+</body>
+</html>
