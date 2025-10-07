@@ -1,66 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Uploaded Files</title>
-    <style>
-        .viewer {
-            width: 80%;
-            height: 400px;
-            border: 2px solid #555;
-            margin-top: 20px;
-        }
-        .thumb {
-            max-width: 150px;
-            max-height: 150px;
-            margin: 10px;
-            border: 1px solid #aaa;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
-<a href="/">Home</a>
-
 <h1>Uploaded Files</h1>
-
-<p th:text="${message}"></p>
-
-<!-- Files List -->
-<ul>
-    <li th:each="file : ${files}">
-        <!-- Thumbnail दिखाना -->
-        <img th:src="@{/view(fileName=${file})}" class="thumb"
-             th:onclick="'showFile(\\'' + @{/view(fileName=${file})} + '\\', \\'' + ${file} + '\\')'"/>
-        <br/>
-        <span th:text="${file}"></span>
-        <!-- Download Button -->
-        <a th:href="@{/download(fileName=${file})}" download>
-            <button>Download</button>
-        </a>
-    </li>
-
-</ul>
-<script>
-    function showFile(url, fileName) {
-        const ext = fileName.split('.').pop().toLowerCase();
-        const iframe = document.getElementById("fileViewer");
-        const img = document.getElementById("imageViewer");
-
-        if (ext === "jpg" || ext === "jpeg" || ext === "png" || ext === "gif") {
-            iframe.style.display = "none";
-            img.style.display = "block";
-            img.src = url;
-        } else {
-            img.style.display = "none";
-            iframe.style.display = "block";
-            iframe.src = url;
-        }
-    }
-</script>
-
-<br>
-
-
+<table border="1">
+    <tr>
+        <th>File Name</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="file : ${files}">
+        <td th:text="${file.fileName}"></td>
+        <td>
+            <a th:href="@{/view(fileName=${file.fileName})}" target="_blank">View</a> |
+            <a th:href="@{/download(fileName=${file.fileName})}">Download</a> |
+            <a th:href="@{/delete(fileName=${file.fileName})}" onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
+    </tr>
+</table>
+<a href="/">Home</a>
 </body>
 </html>
