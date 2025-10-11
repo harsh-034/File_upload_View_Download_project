@@ -4,7 +4,7 @@ import javax.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "uploaded_files")
+@Table(name = "uploaded_files")  //crate table atometcley
 @Data
 public class UploadedFile {
 
@@ -12,7 +12,7 @@ public class UploadedFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true) // Unique file names
+    @Column(unique = false) // Unique file names
     private String fileName;
 
     private String fileType;
